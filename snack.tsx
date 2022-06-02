@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Alert, Pressable, Text, SafeAreaView, View } from "react-native";
 import { types } from "mobx-state-tree";
 import { withAsyncStorage } from "mst-async-storage";
+import { observer } from "mobx-react-lite";
 
 export const NiceThingsModel = types
   .model("NiceThings")
@@ -19,10 +20,10 @@ export const NiceThingsModel = types
   }))
   .extend(withAsyncStorage({ key: "nice.things" }));
 
-const App = () => {
-  // create your model as usual
-  const happy = NiceThingsModel.create();
+// create your model as usual
+const happy = NiceThingsModel.create();
 
+const App = () => {
   useEffect(() => {
     (async () => {
       try {
@@ -74,4 +75,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default observer(App);
